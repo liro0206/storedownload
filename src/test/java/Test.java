@@ -140,7 +140,7 @@ public class Test {
         }*/
 
 
-        String word = "定位";
+        /*String word = "定位";
         String url = "http://a.vmall.com/uowap/index?method=internal.getTabDetail&maxResults=25&reqPageNum=1&serviceType=13&uri=searchApp" + URLEncoder.encode("|") + URLEncoder.encode(word);
         HttpGet httpGet = new HttpGet(url);
 
@@ -163,11 +163,16 @@ public class Test {
             System.out.println(result);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         /*try {
-            String url="http://a.vmall.com/uowap/index?method=internal.getTabDetail&serviceType=13&reqPageNum=1&uri=app"+URLEncoder.encode("|")+"C95180&maxResults=10";
+
+            String word = URLEncoder.encode("定位", "UTF-8");
+            System.out.println(word);
+            //String url = "https://app.market.xiaomi.com/apm/search?channel=market_100_1_android&clientId=0726c9c46e155f4fba91b3d9a977b1f3&co=CN&densityScaleFactor=3.0&imei=1a40e0d8960b4dd41ec1a8d6f517831b&keyword="+word+"&la=zh&marketVersion=147&model=vivo+X20A&os=eng.compil.20180515.183659&page=0&ref=input&resolution=1080*1920&sdk=25&session=2jmj7l5rSw0yVb_v";
+
+            String url = "https://app.market.xiaomi.com/apm/download/9900?channel=market_100_1_android&clientId=0726c9c46e155f4fba91b3d9a977b1f3&co=CN&densityScaleFactor=3.0&imei=1a40e0d8960b4dd41ec1a8d6f517831b&la=zh&marketVersion=147&model=vivo+X20A&net=wifi&os=eng.compil.20180515.183659&ref=search&refPosition=17&resolution=1080*1920&sdk=25&session=2jmj7l5rSw0yVb_v";
 
             HttpGet httpGet = new HttpGet(url);
             HttpClient client = HttpClients.createDefault();
@@ -179,28 +184,11 @@ public class Test {
 
             System.out.println(result);
 
-            JSONObject jsonObject = JSONObject.parseObject(result);
-            JSONArray array1 = jsonObject.getJSONArray("layoutData");
-            for (int i = 0; i < array1.size(); i++) {
-                JSONObject tempObject = array1.getJSONObject(i);
-                if(tempObject.getString("layoutName").equals("detailhiddencard")) {
-                    JSONArray array2 = tempObject.getJSONArray("dataList");
-
-                    for (int j = 0; j < array2.size(); j++) {
-                        JSONObject tempObject2 = array2.getJSONObject(j);
-                        if("com.jlzb.android".equals(tempObject2.getString("package"))) {
-                            System.out.println(tempObject2.getString("downurl"));
-                        }
-                    }
-
-                }
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
         }*/
 
-        /*HttpClient httpClient = null;
+        HttpClient httpClient = null;
         try {
             File f = new File("C:\\Users\\Administrator\\Desktop\\store\\123123123.apk");
             if (!f.exists())
@@ -208,7 +196,7 @@ public class Test {
 
             httpClient = new DefaultHttpClient();
 
-            URI uri = new URI("http://appdlc.hicloud.com/dl/appdl/application/apk/e8/e8c73356605c4f328b12268e1f625165/com.jlzb.android.1805151509.apk?sign=e90k1001e710010720009000@07F046888C68E3BE911219683CF7761B&extendStr=detail%3A1%3B&tabStatKey=A01001&relatedAppId=C95180&encryptType=1");
+            URI uri = new URI("http://f6.market.xiaomi.com/download/AppStore/0a820c4c4f2fe430038be73f9afaa8ca7a6f4f439");
             HttpGet httpGet = new HttpGet(uri);
 
             HttpResponse response = httpClient.execute(httpGet);
@@ -224,7 +212,7 @@ public class Test {
         } finally {
             if(httpClient != null)
                 httpClient.getConnectionManager().shutdown();
-        }*/
+        }
 
     }
 

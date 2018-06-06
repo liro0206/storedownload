@@ -1410,4 +1410,10 @@ ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>1run fail
 ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>2run fail
   2018-06-06 11:35:37 上午 [Thread: Thread-2][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
 ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>3run fail
+  2018-06-06 17:41:46 下午 [Thread: Thread-3][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[定位],[xiaomi][第1次][失败：APPID NULL]
+  2018-06-06 17:43:39 下午 [Thread: Thread-3][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[定位],[xiaomi][第1次][失败：APPID NULL]
+  2018-06-06 17:48:28 下午 [Thread: Thread-3][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[定位],[xiaomi][第1次][失败：APPID NULL]
   
