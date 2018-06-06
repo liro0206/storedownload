@@ -8,10 +8,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
 
 public class NormalHttpRequest extends HttpRequest {
 
@@ -21,30 +20,54 @@ public class NormalHttpRequest extends HttpRequest {
 
     @Override
     public String req() {
+        HttpClient httpClient = null;
+        String result = "";
         try {
-            HttpClient httpClient = new DefaultHttpClient();
+            httpClient = new DefaultHttpClient();
             URI uri = new URI(super.getUrl());
             HttpGet httpget = new HttpGet(uri);
 
             HttpResponse response = httpClient.execute(httpget);
 
-            String result = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
-
-            httpClient.getConnectionManager().shutdown();
-
-            return result;
-        } catch (URISyntaxException e) {
+            result = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            if(httpClient != null)
+                httpClient.getConnectionManager().shutdown();
         }
 
-        return null;
+        return result;
     }
 
     @Override
     public void download(AppInfo appInfo) {
+        HttpClient httpClient = null;
+        try {
+            File f = new File(appInfo.toString() + ".temp.apk");
+            if (!f.exists())
+                f.createNewFile();
 
+            httpClient = new DefaultHttpClient();
+
+            URI uri = new URI(super.getUrl());
+            HttpGet httpGet = new HttpGet(uri);
+
+            HttpResponse response = httpClient.execute(httpGet);
+
+            response.getEntity().writeTo(new FileOutputStream(f));
+
+            //删除临时下载文件
+            f.delete();
+
+            //每次下载完休息2秒
+            //Thread.sleep(RuleManage.rule.getSleeptime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(httpClient != null)
+                httpClient.getConnectionManager().shutdown();
+        }
     }
 
 }

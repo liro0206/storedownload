@@ -27,47 +27,51 @@ public class OppoHttpRequest extends HttpRequest {
 
     @Override
     public String req() {
+        HttpClient httpClient = null;
+        String result = "";
         try {
-            HttpClient httpClient = new DefaultHttpClient();
+            httpClient = new DefaultHttpClient();
             HttpGet httpGet = createHttpGet();
 
             HttpResponse response = httpClient.execute(httpGet);
 
             String s = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 
-            httpClient.getConnectionManager().shutdown();
-            String result= URLDecoder.decode(s, HTTP.UTF_8);
-
-            return result;
+            result= URLDecoder.decode(s, HTTP.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if(httpClient != null)
+                httpClient.getConnectionManager().shutdown();
         }
 
-        return null;
+        return result;
     }
 
     @Override
     public void download(AppInfo appInfo) {
+        HttpClient httpClient = null;
         try {
             File f = new File(appInfo.toString() + ".temp.apk");
             if (!f.exists())
                 f.createNewFile();
 
-            HttpClient httpClient = new DefaultHttpClient();
+            httpClient = new DefaultHttpClient();
             HttpGet httpGet = createHttpGet();
             HttpResponse response = httpClient.execute(httpGet);
 
             response.getEntity().writeTo(new FileOutputStream(f));
 
-            httpClient.getConnectionManager().shutdown();
-
-            if(f.length() > 1000)
-                f.delete();
+            //删除临时下载文件
+            f.delete();
 
             //每次下载完休息2秒
             //Thread.sleep(RuleManage.rule.getSleeptime());
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if(httpClient != null)
+                httpClient.getConnectionManager().shutdown();
         }
     }
 

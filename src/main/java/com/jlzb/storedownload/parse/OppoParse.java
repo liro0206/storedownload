@@ -77,12 +77,6 @@ public class OppoParse implements Parse{
                     }
                 }
             }
-
-
-
-
-
-
         }
 
         return appid;

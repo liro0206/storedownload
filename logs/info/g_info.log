@@ -3564,4 +3564,12 @@ ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>2run fail
 ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>3run fail
   2018-06-06 11:44:59 上午 [Thread: Thread-0][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:56) ]
 INFO:[com.jlzb.android],[手机定位],[vivo]======>1run succ
+  2018-06-06 16:20:55 下午 [Thread: Thread-2][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:56) ]
+INFO:[com.jlzb.android],[定位],[huawei]======>1run succ
+  2018-06-06 16:21:04 下午 [Thread: Thread-0][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:56) ]
+INFO:[com.jlzb.android],[定位],[oppo]======>1run succ
+  2018-06-06 16:21:08 下午 [Thread: Thread-1][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:56) ]
+INFO:[com.jlzb.android],[手机定位],[vivo]======>1run succ
+  2018-06-06 16:24:32 下午 [Thread: Thread-2][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:56) ]
+INFO:[com.jlzb.android],[定位],[huawei][第1次][成功]
   

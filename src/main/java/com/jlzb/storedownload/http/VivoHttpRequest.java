@@ -1,18 +1,8 @@
 package com.jlzb.storedownload.http;
 
 import com.jlzb.storedownload.Bean.AppInfo;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-
 import java.io.*;
 import java.net.*;
-import java.util.List;
-import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 public class VivoHttpRequest extends HttpRequest {
@@ -30,35 +20,42 @@ public class VivoHttpRequest extends HttpRequest {
 
     @Override
     public String req() {
+        BufferedReader reader = null;
+        String result = "";
         try {
-            String result = "";
             InputStream urlStream = new GZIPInputStream(connection.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(urlStream, "utf-8"));
+            reader = new BufferedReader(new InputStreamReader(urlStream, "utf-8"));
             String line;
 
             while ((line = reader.readLine()) != null) {
                 result += line;
             }
 
-            reader.close();
-
-            return result;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return "";
+        } finally {
+            if(reader != null)
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
 
+        return result;
     }
 
     @Override
     public void download(AppInfo appInfo) {
+        InputStream urlStream = null;
+        FileOutputStream fileOutputStream = null;
         try {
             File file = new File(appInfo.toString() + ".temp.apk");
             if (!file.exists())
                 file.createNewFile();
 
-            InputStream urlStream = connection.getInputStream();
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            urlStream = connection.getInputStream();
+            fileOutputStream = new FileOutputStream(file);
 
             int length = 0;
             byte[] b = new byte[1024];
@@ -67,10 +64,26 @@ public class VivoHttpRequest extends HttpRequest {
                 fileOutputStream.write(b, 0, length);
             }
 
-            urlStream.close();
-            fileOutputStream.close();
-        } catch (IOException e) {
+            //删除临时下载文件
+            file.delete();
+
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if(urlStream != null)
+                try {
+                    urlStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            if(fileOutputStream != null)
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
         }
     }
 

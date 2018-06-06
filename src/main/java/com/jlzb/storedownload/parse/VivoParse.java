@@ -6,6 +6,7 @@ import com.jlzb.storedownload.Bean.AppInfo;
 import com.jlzb.storedownload.device.Device;
 import com.jlzb.storedownload.http.HttpRequest;
 import com.jlzb.storedownload.http.VivoHttpRequest;
+import com.jlzb.storedownload.utils.StringUtil;
 
 public class VivoParse implements Parse {
 
@@ -26,7 +27,7 @@ public class VivoParse implements Parse {
         while (index < 4) {
             String _url = url + "&page_index=" + index;
             String result = dosearch(_url);
-            if (result != null) {
+            if (!StringUtil.isEmpty(result)) {
                 JSONObject jsonObject = JSONObject.parseObject(result);
 
                 JSONArray focusArray = jsonObject.getJSONArray("focus");

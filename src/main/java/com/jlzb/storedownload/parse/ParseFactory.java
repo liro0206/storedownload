@@ -10,9 +10,9 @@ public class ParseFactory {
             return new OppoParse(device, appInfo);
         } else if("vivo".equals(storename)) {
             return new VivoParse(device, appInfo);
-        } /*else if("huawei".equals(storename)) {
-            return huaweiManage;
-        } else if("xiaomi".equals(storename)) {
+        } else if("huawei".equals(storename)) {
+            return new HuaweiParse(device, appInfo);
+        } /*else if("xiaomi".equals(storename)) {
             return xiaomiManage;
         } else if("baidu".equals(storename)) {
             return normalManage;

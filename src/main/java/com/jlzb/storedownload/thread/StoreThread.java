@@ -53,16 +53,16 @@ public class StoreThread extends Observable implements Runnable {
 
                     if (getdownloadurl != null) {
                         parse.download(getdownloadurl);
-                        log.info(appInfo.toString()+"======>"+(runcount+1)+"run succ");
-                        System.out.println(appInfo.toString()+"======>"+(runcount+1)+"run succ");
+                        log.info(appInfo.toString()+"[第"+(runcount+1)+"次]"+"[成功]");
+                        System.out.println(appInfo.toString()+"[第"+(runcount+1)+"次]"+"[成功]");
                     } else {
-                        log.error(appInfo.toString()+"===error2===>"+(runcount+1)+"run fail");
-                        System.err.println(appInfo.toString()+"===error2===>"+(runcount+1)+"run fail");
+                        log.error(appInfo.toString()+"[第"+(runcount+1)+"次]"+"[失败:下载地址NULL]");
+                        System.err.println(appInfo.toString()+"[第"+(runcount+1)+"次]"+"[失败:下载地址NULL]");
                     }
 
                 } else {
-                    System.err.println(appInfo.toString()+"===error1===>"+(runcount+1)+"run fail");
-                    log.error(appInfo.toString()+"===error1===>"+(runcount+1)+"run fail");
+                    System.err.println(appInfo.toString()+"[第"+(runcount+1)+"次]"+"[失败：APPID NULL]");
+                    log.error(appInfo.toString()+"[第"+(runcount+1)+"次]"+"[失败：APPID NULL]");
                 }
             } catch (Exception e) {
                 e.printStackTrace();

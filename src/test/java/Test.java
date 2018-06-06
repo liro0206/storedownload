@@ -1,11 +1,17 @@
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.jlzb.storedownload.http.VivoHttpRequest;
 import com.jlzb.storedownload.utils.StringUtil;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.dom4j.DocumentException;
@@ -16,10 +22,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -98,10 +101,10 @@ public class Test {
         }*/
 
        // System.out.println(StringUtil.getUUID());
-        try {
+        //try {
 
         /*String url="http://info.appstore.vivo.com.cn/port/package/?screensize=1080_1920&app_version=1011&density=3.0&nt=WIFI&need_comment=0&elapsedtime=688297156&cp=280&an=8.0.0target=local&cs=0&module_id=8&pictype=webp&u=1234567890&av=26&page_index=1&imei=867779030125927&model=ALP-AL00&content_complete=1&id=57726";*/
-            String word="手机定位";
+            /*String word="手机定位";
             int page=1;
             String url="http://search.appstore.vivo.com.cn/port/packages/?nt=WIFI&model=Coolpad+8297-T01&cfrom=2&density=2.0&page_index="+page+"&screensize=720_1280&imei=867660022602745&build_number=4.4.049.P0.8297-T01&app_version=1063&av=19&apps_per_page=20&cs=0&sshow=110&id=0&u=90014a483847316505076c91bc695200&pictype=webp&elapsedtime=1440738&an=4.4.4&target=local&key="+word+"&s=2%7C1111905542";
 
@@ -134,7 +137,94 @@ public class Test {
             System.out.println(new String(result.getBytes(), "UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+
+
+        String word = "定位";
+        String url = "http://a.vmall.com/uowap/index?method=internal.getTabDetail&maxResults=25&reqPageNum=1&serviceType=13&uri=searchApp" + URLEncoder.encode("|") + URLEncoder.encode(word);
+        HttpGet httpGet = new HttpGet(url);
+
+        CloseableHttpClient client = HttpClients.createDefault();
+        try {
+            CloseableHttpResponse response = client.execute(httpGet);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode != 200) {
+                httpGet.abort();
+                throw new RuntimeException("HttpClient,error status code :" + statusCode);
+            }
+            HttpEntity entity = response.getEntity();
+            String result = null;
+            if (entity != null) {
+                result = EntityUtils.toString(entity, "utf-8");
+            }
+            EntityUtils.consume(entity);
+            response.close();
+
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
+        /*try {
+            String url="http://a.vmall.com/uowap/index?method=internal.getTabDetail&serviceType=13&reqPageNum=1&uri=app"+URLEncoder.encode("|")+"C95180&maxResults=10";
+
+            HttpGet httpGet = new HttpGet(url);
+            HttpClient client = HttpClients.createDefault();
+            HttpResponse response = client.execute(httpGet);
+
+            HttpEntity entity = response.getEntity();
+            String result  = EntityUtils.toString(entity, "utf-8");
+            //EntityUtils.consume(entity);
+
+            System.out.println(result);
+
+            JSONObject jsonObject = JSONObject.parseObject(result);
+            JSONArray array1 = jsonObject.getJSONArray("layoutData");
+            for (int i = 0; i < array1.size(); i++) {
+                JSONObject tempObject = array1.getJSONObject(i);
+                if(tempObject.getString("layoutName").equals("detailhiddencard")) {
+                    JSONArray array2 = tempObject.getJSONArray("dataList");
+
+                    for (int j = 0; j < array2.size(); j++) {
+                        JSONObject tempObject2 = array2.getJSONObject(j);
+                        if("com.jlzb.android".equals(tempObject2.getString("package"))) {
+                            System.out.println(tempObject2.getString("downurl"));
+                        }
+                    }
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+        /*HttpClient httpClient = null;
+        try {
+            File f = new File("C:\\Users\\Administrator\\Desktop\\store\\123123123.apk");
+            if (!f.exists())
+                f.createNewFile();
+
+            httpClient = new DefaultHttpClient();
+
+            URI uri = new URI("http://appdlc.hicloud.com/dl/appdl/application/apk/e8/e8c73356605c4f328b12268e1f625165/com.jlzb.android.1805151509.apk?sign=e90k1001e710010720009000@07F046888C68E3BE911219683CF7761B&extendStr=detail%3A1%3B&tabStatKey=A01001&relatedAppId=C95180&encryptType=1");
+            HttpGet httpGet = new HttpGet(uri);
+
+            HttpResponse response = httpClient.execute(httpGet);
+
+            response.getEntity().writeTo(new FileOutputStream(f));
+
+
+
+            //每次下载完休息2秒
+            //Thread.sleep(RuleManage.rule.getSleeptime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(httpClient != null)
+                httpClient.getConnectionManager().shutdown();
+        }*/
 
     }
 
