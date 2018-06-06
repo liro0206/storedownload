@@ -33,8 +33,15 @@ public class Runner {
             log.info("========>所有任务执行完成<========");
         } else {
             //进行adsl拨号
-            if(!NetState.isConnect())
+            if(!NetState.isConnect()) {
                 ConnectNetWork.connAdsl();
+
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
             RunnerContext.uuid_count_map = new HashMap<>();
 

@@ -1392,4 +1392,22 @@ ERROR:[com.jlzb.android],[定位],[oppo]===error1===>1run fail
 ERROR:[com.jlzb.android],[定位],[vivo]===error1===>1run fail
   2018-06-06 10:26:43 上午 [Thread: Thread-2][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
 ERROR:[com.jlzb.android],[定位],[vivo]===error1===>1run fail
+  2018-06-06 11:28:30 上午 [Thread: Thread-3][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>1run fail
+  2018-06-06 11:29:22 上午 [Thread: Thread-3][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>1run fail
+  2018-06-06 11:30:29 上午 [Thread: Thread-3][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>1run fail
+  2018-06-06 11:32:55 上午 [Thread: Thread-3][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>1run fail
+  2018-06-06 11:32:55 上午 [Thread: Thread-1][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:59) ]
+ERROR:[com.jlzb.android],[手机定位],[oppo]===error2===>1run fail
+  2018-06-06 11:34:31 上午 [Thread: Thread-3][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>1run fail
+  2018-06-06 11:35:31 上午 [Thread: Thread-0][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>1run fail
+  2018-06-06 11:35:34 上午 [Thread: Thread-1][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>2run fail
+  2018-06-06 11:35:37 上午 [Thread: Thread-2][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[vivo]===error1===>3run fail
   

@@ -92,7 +92,7 @@
                     <archive>
                         <!-- 清单文件 -->
                         <manifest>
-                            <mainClass>com.jlzb.storedownload.utils.ConnectNetWork</mainClass>
+                            <mainClass>com.jlzb.storedownload.MainClass</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>

@@ -101,8 +101,8 @@ public class Test {
         try {
 
         /*String url="http://info.appstore.vivo.com.cn/port/package/?screensize=1080_1920&app_version=1011&density=3.0&nt=WIFI&need_comment=0&elapsedtime=688297156&cp=280&an=8.0.0target=local&cs=0&module_id=8&pictype=webp&u=1234567890&av=26&page_index=1&imei=867779030125927&model=ALP-AL00&content_complete=1&id=57726";*/
-            String word="购物";
-            int page=2;
+            String word="手机定位";
+            int page=1;
             String url="http://search.appstore.vivo.com.cn/port/packages/?nt=WIFI&model=Coolpad+8297-T01&cfrom=2&density=2.0&page_index="+page+"&screensize=720_1280&imei=867660022602745&build_number=4.4.049.P0.8297-T01&app_version=1063&av=19&apps_per_page=20&cs=0&sshow=110&id=0&u=90014a483847316505076c91bc695200&pictype=webp&elapsedtime=1440738&an=4.4.4&target=local&key="+word+"&s=2%7C1111905542";
 
 
