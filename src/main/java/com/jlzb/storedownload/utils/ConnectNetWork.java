@@ -12,7 +12,7 @@ public class ConnectNetWork {
     private static String ip = null;
 
     //更新IP失败次数
-    private static int changeipfail = 0;
+    //private static int changeipfail = 0;
 
     /**
      * 执行CMD命令,并返回String字符串
@@ -76,25 +76,30 @@ public class ConnectNetWork {
     public static void connAdsl() {
         //判断是否更换IP
         if (RunnerContext.ruleManage.rule.getAdslswitch() == 1) {
-            //进行拨号
-            if (!ConnectNetWork.connAdsl(RunnerContext.ruleManage.rule.getConnectname(), RunnerContext.ruleManage.rule.getAdsluser(), RunnerContext.ruleManage.rule.getAdslpass())) {
-                System.err.println("========>第一次尝试拨号连接失败<========");
+            break1 : while(true) {
+                for(int i=0; i<20; i++) {
+                    //进行拨号
+                    if (!ConnectNetWork.connAdsl(RunnerContext.ruleManage.rule.getConnectname(), RunnerContext.ruleManage.rule.getAdsluser(), RunnerContext.ruleManage.rule.getAdslpass())) {
+                        System.err.println("========>第"+i+"次尝试拨号连接失败<========");
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("========>第"+i+"次尝试拨号连接成功<========");
+                        break break1;
+                    }
+                }
 
                 try {
-                    Thread.sleep(1000);
+                    System.out.println("========>尝试进行20次连接都失败 程序停2分钟再试<========");
+                    Thread.sleep(120000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                if(!ConnectNetWork.connAdsl(RunnerContext.ruleManage.rule.getConnectname(), RunnerContext.ruleManage.rule.getAdsluser(), RunnerContext.ruleManage.rule.getAdslpass())) {
-                    System.err.println("========>第二次尝试拨号连接失败<========");
-                } else {
-                    System.out.println("========>第二次尝试拨号连接成功<========");
-                }
-            } else {
-                System.out.println("========>第一次尝试拨号连接成功<========");
             }
-
 
 
             if(ip != null) {
@@ -105,12 +110,14 @@ public class ConnectNetWork {
                     System.err.println("========>IP更换失败<========");
 
                     //重新进行一次adsl拨号
-                    if(changeipfail <3) {
+                    /*if(changeipfail <3) {
                         changeipfail++;
                         connAdsl();
                     } else {
                         changeipfail = 0;
-                    }
+                    }*/
+
+                    connAdsl();
                 }
             }
         }
