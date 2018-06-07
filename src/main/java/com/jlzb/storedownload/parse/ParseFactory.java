@@ -18,9 +18,9 @@ public class ParseFactory {
             return new BaiduParse(device, appInfo);
         } /*else if("360".equals(storename)) {
             return normalManage;
-        } else if("yingyongbao".equals(storename)) {
-            return normalManage;
-        }*/
+        }*/ else if("yingyongbao".equals(storename)) {
+            return new YingyongbaoParse(device, appInfo);
+        }
 
         return null;
     }

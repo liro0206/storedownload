@@ -216,14 +216,14 @@ public class Test {
         }*/
 
 
-        String word="找帮";
+        /*String word="找帮";
         int page=0;
         String url= null;
         try {
             url = "http://appc.baidu.com/as?uid=YO2fi_il2ul3u287gO-oilicB8gO8v8fgiHh8laLHiqUuSiTga2E8_aa28_4av8V3dlqC&tn=native&abi=armeabi-v7a&from=1009306c&ver=16794028&is_support_webp=true&cct=qivtkjihetggRHi86iS3kliheug_MHf3odfqA&network=WF&cen=cuid_cut_cua_uid&platform_version_id=19&province=qivtkjihetggRHi86iS3kliheug_MHf3odfqA&st=10a001&apn=&native_api=1&psize=3&usertype=2&cll=ga24N_uN2tjpRvaEgPslfgadv8LqA&operator=460018&country=CN&pkname=com.baidu.appsearch&gms=false&pu=cua%40_avLC_aE-i4qywoUfpw1zyPLXio5uL8bxLqqC%2Cosname%40baiduappsearch%2Cctv%401%2Ccfrom%401000561u%2Ccuid%40YO2fi_il2ul3u287gO-oilicB8gO8v8fgiHh8laLHi67uviJlav8i_aL28_Aa285ga2VtqqHB%2Ccut%40lpw2qfy3AIYQuB8lz9v6iya8XizJuL8DjNL1j5J4mzqcC%2Ccsrc%40app_box_txt&word="+ URLEncoder.encode(word, "UTF-8")+"&language=zh&disp=4.4.049.P0.8297-T01&&crid=1510718613999&native_api=1&pn="+page+"&f=search&bannert=26%4027%4028%4029%4030%4032%4043&rqt=rty&ptl=hp ";
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
+        }*/
 /*
 
         int i=23944466;
@@ -232,8 +232,36 @@ public class Test {
 */
 
 //String url = "http://gdown.baidu.com/data/wisegame/8f65ab62a9ef7392/zhaobangshoujifangdao_56.apk";
+        /*String word="定位";
+        try {
+            word = URLEncoder.encode(word, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String url = "http://m5.qq.com/pcsoftmgr/searchapp.htm?keyword="+word+"&searchScene=1&pageSize=20&contextData=MjA=";
+*/
+        String url = "http://m5.qq.com/app/getappdetail.htm?pkgName=com.jlzb.android&sceneId=0";
         String result = "";
-        BufferedReader bufferedReader = null;
+
+        HttpClient httpClient = null;
+        try {
+            httpClient = new DefaultHttpClient();
+            URI uri = new URI(url);
+            HttpGet httpget = new HttpGet(uri);
+
+            HttpResponse response = httpClient.execute(httpget);
+
+            result = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(httpClient != null)
+                httpClient.getConnectionManager().shutdown();
+        }
+
+
+
+        /*BufferedReader bufferedReader = null;
         InputStream urlStream = null;
         try {
             String urlNameString = url;
@@ -242,8 +270,8 @@ public class Test {
             URLConnection connection = realUrl.openConnection();
 
 //            connection.setRequestProperty("sign", "XGBWAEOl5peoqBhbz04RIw==");
-            connection.setRequestProperty("User-Agent", "Dalvik/1.6.0 (Linux; U; Android 4.4.4; Coolpad 8297-T01 Build/KTU84P)");
-            //connection.setRequestProperty("Host", "appc.baidu.com");
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36 QBCore/3.43.815.400 QQBrowser/9.0.2524.400");
+            connection.setRequestProperty("Host", "m5.qq.com");
             connection.setRequestProperty("Connection", "Keep-Alive");
             connection.setRequestProperty("Accept-Encoding", "gzip");
 
@@ -257,7 +285,7 @@ public class Test {
 //            in = new BufferedReader(new InputStreamReader(
 //                    connection.getInputStream()));
 
-                urlStream = new GZIPInputStream(connection.getInputStream());
+                urlStream = connection.getInputStream();
                 bufferedReader = new BufferedReader(new InputStreamReader(urlStream,"utf-8"));
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
@@ -279,7 +307,7 @@ public class Test {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-            }
+            }*/
 
         System.out.println(result);
     }

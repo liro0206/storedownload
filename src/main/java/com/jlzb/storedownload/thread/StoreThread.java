@@ -9,6 +9,7 @@ import com.jlzb.storedownload.observer.RunnerObserver;
 import com.jlzb.storedownload.parse.OppoParse;
 import com.jlzb.storedownload.parse.Parse;
 import com.jlzb.storedownload.parse.ParseFactory;
+import com.jlzb.storedownload.utils.StringUtil;
 import org.apache.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
@@ -51,7 +52,7 @@ public class StoreThread extends Observable implements Runnable {
                 if (appid != 0) {
                     String getdownloadurl = parse.getdownloadurl(appid);
 
-                    if (getdownloadurl != null) {
+                    if (!StringUtil.isEmpty(getdownloadurl)) {
                         parse.download(getdownloadurl);
                         log.info(appInfo.toString()+"[第"+(runcount+1)+"次]"+"[成功]");
                         System.out.println(appInfo.toString()+"[第"+(runcount+1)+"次]"+"[成功]");
