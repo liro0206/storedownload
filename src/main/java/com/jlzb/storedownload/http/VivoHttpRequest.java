@@ -49,8 +49,9 @@ public class VivoHttpRequest extends HttpRequest {
     public void download(AppInfo appInfo) {
         InputStream urlStream = null;
         FileOutputStream fileOutputStream = null;
+        File file = null;
         try {
-            File file = new File(appInfo.toString() + ".temp.apk");
+            file = new File(appInfo.toString() + ".temp.apk");
             if (!file.exists())
                 file.createNewFile();
 
@@ -63,9 +64,6 @@ public class VivoHttpRequest extends HttpRequest {
             while ((length = urlStream.read(b)) > 0) {
                 fileOutputStream.write(b, 0, length);
             }
-
-            //删除临时下载文件
-            file.delete();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,6 +82,9 @@ public class VivoHttpRequest extends HttpRequest {
                     e.printStackTrace();
                 }
 
+            //删除临时文件
+            if(file != null && file.exists())
+                file.delete();
         }
     }
 

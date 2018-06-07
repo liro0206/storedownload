@@ -10,6 +10,8 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 
 public class NormalHttpRequest extends HttpRequest {
@@ -43,8 +45,10 @@ public class NormalHttpRequest extends HttpRequest {
     @Override
     public void download(AppInfo appInfo) {
         HttpClient httpClient = null;
+        FileOutputStream fileOutputStream = null;
+        File f = null;
         try {
-            File f = new File(appInfo.toString() + ".temp.apk");
+            f = new File(appInfo.toString() + ".temp.apk");
             if (!f.exists())
                 f.createNewFile();
 
@@ -55,18 +59,39 @@ public class NormalHttpRequest extends HttpRequest {
 
             HttpResponse response = httpClient.execute(httpGet);
 
-            response.getEntity().writeTo(new FileOutputStream(f));
+            fileOutputStream = new FileOutputStream(f);
+            response.getEntity().writeTo(fileOutputStream);
 
-            //删除临时下载文件
-            f.delete();
+
+           /* byte[] bytes = new byte[1024];
+            int lenght = 0;
+
+            while((lenght = inputStream.read()) > 0) {
+                fileOutputStream.write(bytes, 0 , lenght);
+            }*/
+
+
 
             //每次下载完休息2秒
             //Thread.sleep(RuleManage.rule.getSleeptime());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            if(fileOutputStream != null)
+                try {
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             if(httpClient != null)
                 httpClient.getConnectionManager().shutdown();
+
+            //删除临时文件
+            if(f != null && f.exists())
+                f.delete();
+
         }
     }
 
