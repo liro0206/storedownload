@@ -1418,4 +1418,6 @@ ERROR:[com.jlzb.android],[定位],[xiaomi][第1次][失败：APPID NULL]
 ERROR:[com.jlzb.android],[定位],[xiaomi][第1次][失败：APPID NULL]
   2018-06-07 10:53:59 上午 [Thread: Thread-0][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:59) ]
 ERROR:[com.jlzb.android],[定位],[oppo][第1次][失败:下载地址NULL]
+  2018-06-07 14:35:30 下午 [Thread: Thread-0][ Class:com.jlzb.storedownload.thread.StoreThread >> Method: com.jlzb.storedownload.thread.StoreThread.run(StoreThread.java:65) ]
+ERROR:[com.jlzb.android],[手机定位],[baidu][第1次][失败：APPID NULL]
   

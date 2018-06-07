@@ -24,6 +24,7 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.net.*;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 public class Test {
@@ -188,7 +189,7 @@ public class Test {
             e.printStackTrace();
         }*/
 
-        HttpClient httpClient = null;
+        /*HttpClient httpClient = null;
         try {
             File f = new File("C:\\Users\\Administrator\\Desktop\\store\\123123123.apk");
             if (!f.exists())
@@ -212,8 +213,75 @@ public class Test {
         } finally {
             if(httpClient != null)
                 httpClient.getConnectionManager().shutdown();
-        }
+        }*/
 
+
+        String word="找帮";
+        int page=0;
+        String url= null;
+        try {
+            url = "http://appc.baidu.com/as?uid=YO2fi_il2ul3u287gO-oilicB8gO8v8fgiHh8laLHiqUuSiTga2E8_aa28_4av8V3dlqC&tn=native&abi=armeabi-v7a&from=1009306c&ver=16794028&is_support_webp=true&cct=qivtkjihetggRHi86iS3kliheug_MHf3odfqA&network=WF&cen=cuid_cut_cua_uid&platform_version_id=19&province=qivtkjihetggRHi86iS3kliheug_MHf3odfqA&st=10a001&apn=&native_api=1&psize=3&usertype=2&cll=ga24N_uN2tjpRvaEgPslfgadv8LqA&operator=460018&country=CN&pkname=com.baidu.appsearch&gms=false&pu=cua%40_avLC_aE-i4qywoUfpw1zyPLXio5uL8bxLqqC%2Cosname%40baiduappsearch%2Cctv%401%2Ccfrom%401000561u%2Ccuid%40YO2fi_il2ul3u287gO-oilicB8gO8v8fgiHh8laLHi67uviJlav8i_aL28_Aa285ga2VtqqHB%2Ccut%40lpw2qfy3AIYQuB8lz9v6iya8XizJuL8DjNL1j5J4mzqcC%2Ccsrc%40app_box_txt&word="+ URLEncoder.encode(word, "UTF-8")+"&language=zh&disp=4.4.049.P0.8297-T01&&crid=1510718613999&native_api=1&pn="+page+"&f=search&bannert=26%4027%4028%4029%4030%4032%4043&rqt=rty&ptl=hp ";
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+/*
+
+        int i=23944466;
+        String url="http://m.baidu.com/appsrv?country=CN&ver=16785288&cll=gPslfgadv9gzivij_h228_ODvfwqC&pc_channel=&pu=cuid%40_8BYig89H8lGaSt3laB1a0aeBaYa82iOjuvAi0ai286uuviJ0OvRi_OSBf_luvi9ga2Vttw6B%2Ccut%400t3_N0tN2iyqPXiDzuD58gIVQMlykSO6A%2Cctv%401%2Ccua%40_a-qi4uq-igBNE6lI5me6NIy2I_UhvCrSdNqA%2Cosname%40baiduappsearch%2Ccfrom%401000561u&platform_version_id=26&abi=armeabi-v7a&usertype=0&language=zh&gms=true&cen=cuid_cut_cua_uid&operator=460077&network=WF&pkname=com.baidu.appsearch&is_support_webp=true&uid=_8BYig89H8lGaSt3laB1a0aeBaYa82iOjuvAi0ai28qRuHf3gu2VfjOQ2iggaviJ3dFqC&firstdoc=&psize=3&cct=qivtkjihetggRHi86iS3kliheug_MHf3odfqA&native_api=1&action=detail&from=1000561u&apn=&&native_api=1&docid="+i+"&f=homepage%40oneclickinstallold%401%402%40source%2BNATURAL%40boardid%2B20149%40pos%2B2%40searchid%2B223986765735699215%40terminal_type%2Bclient%40spec%2B0";
+
+*/
+
+//String url = "http://gdown.baidu.com/data/wisegame/8f65ab62a9ef7392/zhaobangshoujifangdao_56.apk";
+        String result = "";
+        BufferedReader bufferedReader = null;
+        InputStream urlStream = null;
+        try {
+            String urlNameString = url;
+            URL realUrl = new URL(urlNameString);
+            // 打开和URL之间的连接
+            URLConnection connection = realUrl.openConnection();
+
+//            connection.setRequestProperty("sign", "XGBWAEOl5peoqBhbz04RIw==");
+            connection.setRequestProperty("User-Agent", "Dalvik/1.6.0 (Linux; U; Android 4.4.4; Coolpad 8297-T01 Build/KTU84P)");
+            //connection.setRequestProperty("Host", "appc.baidu.com");
+            connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setRequestProperty("Accept-Encoding", "gzip");
+
+
+
+            // 建立实际的连接
+            connection.connect();
+            // 获取所有响应头字段
+            //Map<String, List<String>> map = connection.getHeaderFields();
+            // 定义 BufferedReader输入流来读取URL的响应
+//            in = new BufferedReader(new InputStreamReader(
+//                    connection.getInputStream()));
+
+                urlStream = new GZIPInputStream(connection.getInputStream());
+                bufferedReader = new BufferedReader(new InputStreamReader(urlStream,"utf-8"));
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if(bufferedReader != null)
+                    try {
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                if(urlStream != null)
+                    try {
+                        urlStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+            }
+
+        System.out.println(result);
     }
 
     /**

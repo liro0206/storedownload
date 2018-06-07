@@ -8,6 +8,7 @@ public class Device {
     private String width;
     private String height;
     private String imei;
+    private String androidcode;
 
     public Device(String model, String version, String brand, String width, String height) {
         this.model = model;
@@ -16,6 +17,15 @@ public class Device {
         this.width = width;
         this.height = height;
         this.imei = DeviceRandom.randomImei();
+        this.androidcode = DeviceRandom.randomAndroidCode();
+    }
+
+    public String getAndroidcode() {
+        return androidcode;
+    }
+
+    public void setAndroidcode(String androidcode) {
+        this.androidcode = androidcode;
     }
 
     public String getModel() {

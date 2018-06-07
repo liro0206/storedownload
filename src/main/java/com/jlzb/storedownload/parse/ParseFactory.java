@@ -14,9 +14,9 @@ public class ParseFactory {
             return new HuaweiParse(device, appInfo);
         } else if("xiaomi".equals(storename)) {
             return new XiaomiParse(device, appInfo);
-        } /*else if("baidu".equals(storename)) {
-            return normalManage;
-        } else if("360".equals(storename)) {
+        } else if("baidu".equals(storename)) {
+            return new BaiduParse(device, appInfo);
+        } /*else if("360".equals(storename)) {
             return normalManage;
         } else if("yingyongbao".equals(storename)) {
             return normalManage;
