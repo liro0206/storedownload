@@ -11,6 +11,9 @@ import com.jlzb.storedownload.utils.StringUtil;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+/**
+ * 抓取的是PC端
+ */
 public class YingyongbaoParse implements Parse{
 
     private Device device;

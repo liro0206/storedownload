@@ -1,6 +1,7 @@
 package com.jlzb.storedownload.http;
 
 import com.jlzb.storedownload.Bean.AppInfo;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -47,6 +48,8 @@ public class NormalHttpRequest extends HttpRequest {
         HttpClient httpClient = null;
         FileOutputStream fileOutputStream = null;
         File f = null;
+        HttpGet httpGet = null;
+        HttpEntity entity = null;
         try {
             f = new File(appInfo.toString() + ".temp.apk");
             if (!f.exists())
@@ -55,12 +58,13 @@ public class NormalHttpRequest extends HttpRequest {
             httpClient = new DefaultHttpClient();
 
             URI uri = new URI(super.getUrl());
-            HttpGet httpGet = new HttpGet(uri);
+            httpGet = new HttpGet(uri);
 
             HttpResponse response = httpClient.execute(httpGet);
 
             fileOutputStream = new FileOutputStream(f);
-            response.getEntity().writeTo(fileOutputStream);
+            entity = response.getEntity();
+            entity.writeTo(fileOutputStream);
 
 
            /* byte[] bytes = new byte[1024];
@@ -85,8 +89,21 @@ public class NormalHttpRequest extends HttpRequest {
                     e.printStackTrace();
                 }
 
-            if(httpClient != null)
+            if(entity != null)
+                try {
+                    EntityUtils.consume(entity);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            if(httpGet != null) {
+                httpGet.releaseConnection();
+            }
+
+            if(httpClient != null) {
                 httpClient.getConnectionManager().shutdown();
+            }
+
 
             //删除临时文件
             if(f != null && f.exists())

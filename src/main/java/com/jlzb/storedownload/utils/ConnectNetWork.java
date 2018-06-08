@@ -117,6 +117,15 @@ public class ConnectNetWork {
                         changeipfail = 0;
                     }*/
 
+                    if(NetState.isConnect()) {//当前网络是连接成功的要先断开连接
+                        cutAdsl(RunnerContext.ruleManage.rule.getConnectname());
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                     connAdsl();
                 }
             }

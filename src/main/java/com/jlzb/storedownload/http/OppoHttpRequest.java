@@ -2,6 +2,7 @@ package com.jlzb.storedownload.http;
 
 import com.jlzb.storedownload.Bean.AppInfo;
 import com.jlzb.storedownload.device.Device;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -53,17 +54,20 @@ public class OppoHttpRequest extends HttpRequest {
         HttpClient httpClient = null;
         FileOutputStream fileOutputStream = null;
         File f = null;
+        HttpEntity entity = null;
+        HttpGet httpGet = null;
         try {
             f = new File(appInfo.toString() + ".temp.apk");
             if (!f.exists())
                 f.createNewFile();
 
             httpClient = new DefaultHttpClient();
-            HttpGet httpGet = createHttpGet();
+            httpGet = createHttpGet();
             HttpResponse response = httpClient.execute(httpGet);
 
             fileOutputStream = new FileOutputStream(f);
-            response.getEntity().writeTo(fileOutputStream);
+            entity = response.getEntity();
+            entity.writeTo(fileOutputStream);
 
             /*inputStream = response.getEntity().getContent();
             fileOutputStream = new FileOutputStream(f);
@@ -88,8 +92,22 @@ public class OppoHttpRequest extends HttpRequest {
                     e.printStackTrace();
                 }
 
-            if(httpClient != null)
+            if(entity != null) {
+                try {
+                    EntityUtils.consume(entity);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(httpGet != null) {
+                httpGet.releaseConnection();
+            }
+
+            if(httpClient != null) {
                 httpClient.getConnectionManager().shutdown();
+            }
+
 
             //删除临时下载文件
             if(f != null && f.exists())

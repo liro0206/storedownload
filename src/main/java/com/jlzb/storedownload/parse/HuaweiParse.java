@@ -60,11 +60,11 @@ public class HuaweiParse implements Parse{
         String url="http://a.vmall.com/uowap/index?method=internal.getTabDetail&serviceType=13&reqPageNum=1&uri=app"+URLEncoder.encode("|")+"C"+appid+"&maxResults=10";
         HttpRequest httpRequest = new NormalHttpRequest(url);
         String result = httpRequest.req();
-
+        String downloadurl = "";
         if(!StringUtil.isEmpty(result)) {
             JSONObject jsonObject = JSONObject.parseObject(result);
             JSONArray array1 = jsonObject.getJSONArray("layoutData");
-            for (int i = 0; i < array1.size(); i++) {
+            break1 : for (int i = 0; i < array1.size(); i++) {
                 JSONObject tempObject = array1.getJSONObject(i);
                 if(tempObject.getString("layoutName").equals("detailhiddencard")) {
                     JSONArray array2 = tempObject.getJSONArray("dataList");
@@ -72,14 +72,16 @@ public class HuaweiParse implements Parse{
                     for (int j = 0; j < array2.size(); j++) {
                         JSONObject tempObject2 = array2.getJSONObject(j);
                         if(appInfo.getPackagename().equals(tempObject2.getString("package"))) {
-                            return tempObject2.getString("downurl");
+                            downloadurl = tempObject2.getString("downurl");
+                            break break1;
                         }
                     }
 
                 }
             }
         }
-        return null;
+
+        return downloadurl;
     }
 
     @Override
