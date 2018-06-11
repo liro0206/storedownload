@@ -240,7 +240,7 @@ public class Test {
         }
         String url = "http://m5.qq.com/pcsoftmgr/searchapp.htm?keyword="+word+"&searchScene=1&pageSize=20&contextData=MjA=";
 */
-        String url = "http://m5.qq.com/app/getappdetail.htm?pkgName=com.jlzb.android&sceneId=0";
+       /* String url = "http://m5.qq.com/app/getappdetail.htm?pkgName=com.jlzb.android&sceneId=0";
         String result = "";
 
         HttpClient httpClient = null;
@@ -257,7 +257,7 @@ public class Test {
         } finally {
             if(httpClient != null)
                 httpClient.getConnectionManager().shutdown();
-        }
+        }*/
 
 
 
@@ -309,7 +309,7 @@ public class Test {
                     }
             }*/
 
-        System.out.println(result);
+        //System.out.println(result);
     }
 
     /**

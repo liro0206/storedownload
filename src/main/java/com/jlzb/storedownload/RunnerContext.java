@@ -21,10 +21,6 @@ public class RunnerContext {
     /*用于记录运行数量*/
     public static Map<String, Integer> indexMap = new HashMap<>();
 
-
-    //用于记录同一批次执行完成的线程数量
-    public static Map<String, Integer> uuid_count_map;
-
     //用于记录同一批次运行的线程数量
     public static int threadcount = 0;
 

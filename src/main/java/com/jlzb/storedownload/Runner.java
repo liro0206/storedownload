@@ -26,40 +26,49 @@ public class Runner {
      * 4. 更换IP
      */
     public void start() {
-        apps = RunnerContext.ruleManage.rule.getApps();
+        while(true) {
+            apps = new ArrayList<>();
 
-        if (apps == null || apps.size() == 0) {
-            System.out.println("========>所有任务执行完成<========");
-            log.info("========>所有任务执行完成<========");
-        } else {
-            //进行adsl拨号
-            if(!NetState.isConnect()) {
-                ConnectNetWork.connAdsl();
+            apps.addAll(RunnerContext.ruleManage.rule.getApps());
 
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            if (apps == null || apps.size() == 0) {
+                System.out.println("========>所有任务执行完成<========");
+                log.info("========>所有任务执行完成<========");
+
+                break;
+            } else {
+                //进行adsl拨号
+                if(!NetState.isConnect()) {
+                    ConnectNetWork.connAdsl();
+
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            RunnerContext.uuid_count_map = new HashMap<>();
+                //设置启动线程数量
+                RunnerContext.threadcount = apps.size();
 
-            //生成唯一标识，标记所创建的线程是同一批次的
-            String uuid = StringUtil.getUUID();
+                AppInfo app = null;
+                for (int i = 0; i < RunnerContext.threadcount; i++) {
+                    app = apps.get(i);
 
-            //默认0
-            RunnerContext.uuid_count_map.put(uuid, 0);
+                    //启动软件解析下载线程
+                    new StoreThread(app).start();
+                }
 
-            //设置启动线程数量
-            RunnerContext.threadcount = apps.size();
+                //循环执行完一次断开网络
+                if(NetState.isConnect()) {
+                    ConnectNetWork.cutAdsl();
 
-            AppInfo app = null;
-            for (int i = 0; i < RunnerContext.threadcount; i++) {
-                app = apps.get(i);
-
-                //启动软件解析下载线程
-                new Thread(new StoreThread(uuid, app)).start();
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
